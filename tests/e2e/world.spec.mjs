@@ -20,12 +20,8 @@ test('uses powers and records the result in the chronicle', async ({ page }) => 
   await expect(grow).toHaveClass(/active/);
 
   const forestBefore = await page.evaluate(() => window.__smallThings.simulation.forest);
-  await page.locator('#fallback').dispatchEvent('click', {
-    button: 0,
-    clientX: 640,
-    clientY: 400
-  });
-  await expect.poll(() => page.evaluate(() => window.__smallThings.simulation.forest)).toBeGreaterThan(forestBefore);
+  await page.evaluate(() => window.__smallThings.applyPower('forest', 640, 400));
+  await expect.poll(() => page.evaluate(() => window.__smallThings.simulation.forest)).toBeGreaterThan(forestBefore + 8);
   await expect(page.locator('#eventTitle')).toHaveText('A grove takes root');
 
   await page.getByRole('button', { name: /Open world chronicle/i }).click();
