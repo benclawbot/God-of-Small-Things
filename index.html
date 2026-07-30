@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0b1515" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="description" content="God of Small Things — a living tabletop civilization simulator built with Three.js." />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="God of Small Things" />
@@ -32,28 +35,42 @@
       <span id="seasonDot" class="season-dot"></span>
       <div><small id="seasonLabel">Spring</small><strong>Year <span id="year">1</span></strong></div>
     </div>
-    <div class="top-actions">
+    <div class="top-actions" aria-label="World actions">
+      <button id="saveButton" class="icon-button" aria-label="Save world" title="Save world">▣</button>
+      <button id="loadButton" class="icon-button" aria-label="Load saved world" title="Load saved world">⇩</button>
+      <button id="shareButton" class="icon-button" aria-label="Copy a shareable world link" title="Share world">↗</button>
+      <button id="chronicleButton" class="icon-button" aria-label="Open world chronicle" title="World chronicle">☷</button>
       <button id="soundButton" class="icon-button" aria-label="Toggle ambient sound" title="Toggle ambient sound">♪</button>
       <button id="helpButton" class="icon-button" aria-label="Show controls" title="Show controls">?</button>
       <button id="resetButton" class="icon-button" aria-label="Create a new world" title="Create a new world">↻</button>
     </div>
   </header>
 
-  <aside class="mission glass">
-    <span class="eyebrow">YOUR PURPOSE</span>
-    <h1>Help a small world find its balance.</h1>
-    <p id="missionText">Grow the first settlement without exhausting the land.</p>
-    <div class="objective"><span id="objectiveBar"></span></div>
-    <small><span id="objectiveCurrent">0</span> / <span id="objectiveTarget">120</span> citizens</small>
+  <aside id="missionPanel" class="mission glass" aria-label="Current legacy objective">
+    <div class="mission-meta">
+      <span class="eyebrow">LEGACY <b id="legacyLevel">1</b></span>
+      <span><b id="legacyPoints">0</b> points</span>
+      <button class="panel-toggle" data-panel-toggle data-panel-name="objective" aria-controls="missionPanel" aria-expanded="true" aria-label="Collapse objective">−</button>
+    </div>
+    <h1 id="objectiveLabel">First Roots</h1>
+    <p id="missionText">Grow to 40 citizens while keeping food above 45%.</p>
+    <div class="objective" aria-label="Current legacy objective progress"><span id="objectiveBar"></span></div>
+    <small><span id="objectiveProgress">0%</span> complete</small>
   </aside>
 
-  <aside class="stats glass" aria-label="World statistics">
-    <div class="stats-heading"><span>WORLD PULSE</span><span id="statusWord">Awakening</span></div>
+  <aside id="statsPanel" class="stats glass" aria-label="World statistics">
+    <div class="stats-heading">
+      <span>WORLD PULSE</span>
+      <span id="statusWord">Awakening</span>
+      <button class="panel-toggle" data-panel-toggle data-panel-name="world pulse" aria-controls="statsPanel" aria-expanded="true" aria-label="Collapse world pulse">−</button>
+    </div>
     <div class="stat"><span>Population</span><strong id="population">18</strong></div>
     <div class="stat"><span>Food stores</span><strong id="food">72%</strong></div>
     <div class="stat"><span>Harmony</span><strong id="harmony">68%</strong></div>
     <div class="stat"><span>Wonder</span><strong id="wonder">12</strong></div>
     <div class="stat"><span>Forest cover</span><strong id="forest">42%</strong></div>
+    <div class="stat"><span>Fresh water</span><strong id="water">58%</strong></div>
+    <div class="activity-row"><span>People</span><strong id="activity">Beginning the day · 9</strong></div>
     <div class="weather-row"><span id="weatherIcon">☀</span><div><strong id="weatherName">Clear skies</strong><small id="temperature">18°C</small></div></div>
   </aside>
 
@@ -62,35 +79,47 @@
   </div>
 
   <nav class="powers glass" aria-label="God powers">
-    <button class="power active" data-power="observe"><span>◉</span><small>Observe</small><kbd>1</kbd></button>
-    <button class="power" data-power="forest"><span>♣</span><small>Grow</small><kbd>2</kbd></button>
-    <button class="power" data-power="rain"><span>◒</span><small>Rain</small><kbd>3</kbd></button>
-    <button class="power" data-power="raise"><span>▲</span><small>Raise</small><kbd>4</kbd></button>
-    <button class="power" data-power="inspire"><span>✦</span><small>Inspire</small><kbd>5</kbd></button>
-    <button class="power danger" data-power="storm"><span>ϟ</span><small>Storm</small><kbd>6</kbd></button>
+    <button class="power active" data-power="observe" aria-label="Observe"><span>◉</span><small>Observe</small><kbd>1</kbd></button>
+    <button class="power" data-power="forest" aria-label="Grow forest"><span>♣</span><small>Grow</small><kbd>2</kbd></button>
+    <button class="power" data-power="rain" aria-label="Call rain"><span>◒</span><small>Rain</small><kbd>3</kbd></button>
+    <button class="power" data-power="raise" aria-label="Raise land"><span>▲</span><small>Raise</small><kbd>4</kbd></button>
+    <button class="power" data-power="inspire" aria-label="Inspire people"><span>✦</span><small>Inspire</small><kbd>5</kbd></button>
+    <button class="power danger" data-power="storm" aria-label="Call storm"><span>ϟ</span><small>Storm</small><kbd>6</kbd></button>
   </nav>
 
   <div class="time-controls glass" aria-label="Time controls">
-    <button data-speed="0" aria-label="Pause">Ⅱ</button>
-    <button data-speed="1" class="active">▶</button>
-    <button data-speed="3">▶▶</button>
-    <button data-speed="8">▶▶▶</button>
+    <button data-speed="0" aria-label="Pause time">Ⅱ</button>
+    <button data-speed="1" class="active" aria-label="Run time at normal speed">▶</button>
+    <button data-speed="3" aria-label="Run time at triple speed">▶▶</button>
+    <button data-speed="8" aria-label="Run time at maximum speed">▶▶▶</button>
   </div>
 
-  <div class="hint glass"><span class="mouse">↔</span> Drag to orbit · scroll to zoom · choose a power, then touch the island</div>
+  <div class="hint glass"><span class="mouse">↔</span> Drag to orbit · pinch or scroll to zoom · choose a power, then touch the island</div>
 
   <dialog id="helpDialog">
     <button class="dialog-close" aria-label="Close">×</button>
     <span class="eyebrow">HOW TO PLAY</span>
     <h2>Shape conditions, not commands.</h2>
-    <p>The inhabitants make their own decisions. Your powers change the world around them, and every intervention has a consequence.</p>
+    <p>The inhabitants choose their own work, rest, journeys, and traditions. Your powers change the world around them, and every intervention has a consequence.</p>
     <div class="help-grid">
-      <div><strong>Orbit</strong><span>Drag anywhere</span></div>
-      <div><strong>Zoom</strong><span>Mouse wheel / pinch</span></div>
-      <div><strong>Use power</strong><span>Select below, then click land</span></div>
+      <div><strong>Orbit</strong><span>Drag with a mouse or one finger</span></div>
+      <div><strong>Zoom</strong><span>Mouse wheel or two-finger pinch</span></div>
+      <div><strong>Use power</strong><span>Select below, then tap land</span></div>
       <div><strong>Time</strong><span>Pause or accelerate history</span></div>
+      <div><strong>Save / load</strong><span>Keep one world in this browser</span></div>
+      <div><strong>Share</strong><span>Copy a link to the current world state</span></div>
     </div>
-    <p class="help-note">Optimized for integrated graphics: adaptive resolution, instanced vegetation, capped shadows, and compact simulation updates.</p>
+    <p class="help-note">Complete legacy goals, open the chronicle to revisit emergent stories, and use the low-power mode with <code>?lite=1</code>.</p>
+  </dialog>
+
+  <dialog id="chronicleDialog" class="chronicle-dialog">
+    <button class="dialog-close" aria-label="Close">×</button>
+    <span class="eyebrow">WORLD CHRONICLE</span>
+    <h2>History belongs to small moments.</h2>
+    <p>Milestones, weather, settlement changes, and stories are recorded as the people adapt.</p>
+    <ol id="chronicleList" class="chronicle-list">
+      <li class="chronicle-empty">History is still waiting for its first turning point.</li>
+    </ol>
   </dialog>
 
   <div id="loading" class="loading">
@@ -100,5 +129,6 @@
   </div>
 
   <script type="module" src="src/bootstrap.js"></script>
+  <script type="module" src="src/mobile-controls.js"></script>
 </body>
 </html>

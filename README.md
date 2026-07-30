@@ -6,20 +6,19 @@
 
 <p align="center">
   <strong>A living tabletop civilization simulator built with Three.js.</strong><br />
-  Shape terrain, climate, and culture—then watch tiny societies adapt to the world you create.
+  Shape terrain, climate, and culture—then watch tiny societies adapt, remember, and tell their own history.
 </p>
 
 <p align="center">
   <a href="https://god-of-small-things.vercel.app"><strong>Play the browser build</strong></a>
-  ·
-  <a href="#how-to-play">How to play</a>
-  ·
-  <a href="#development">Development</a>
+  · <a href="#how-to-play">How to play</a>
+  · <a href="#development">Development</a>
+  · <a href="ROADMAP.md">Roadmap</a>
 </p>
 
 <p align="center">
   <img alt="Three.js" src="https://img.shields.io/badge/Three.js-r180-black?logo=threedotjs" />
-  <img alt="No build step" src="https://img.shields.io/badge/build-none-5b8c72" />
+  <img alt="Playwright" src="https://img.shields.io/badge/tested-Playwright-45ba4b?logo=playwright" />
   <img alt="Integrated graphics friendly" src="https://img.shields.io/badge/GPU-integrated--friendly-c79e3b" />
   <img alt="License" src="https://img.shields.io/badge/license-MIT-blue" />
 </p>
@@ -28,7 +27,7 @@
 
 You are a god, but not a commander. The people build, migrate, celebrate, struggle, and change on their own. Your influence is indirect: grow forests, call rain, raise ridges, inspire communities, or unleash storms. Every intervention improves some conditions while putting pressure on others.
 
-The prototype is designed specifically for modest laptops—including machines with 16 GB RAM and integrated graphics—without sacrificing a strong visual identity.
+The game is designed for modest laptops and integrated graphics without sacrificing a strong visual identity.
 
 ## Screenshots
 
@@ -42,15 +41,17 @@ The prototype is designed specifically for modest laptops—including machines w
 
 ## Features
 
-- **A procedural floating island** with mountains, rivers, forests, fields, paths, and two growing settlements.
-- **Six divine powers** with meaningful ecological and social trade-offs.
-- **Autonomous civilization simulation** covering population, food, harmony, wonder, soil, water, and forest health.
-- **Seasonal and weather cycles** that visibly alter the island and influence its carrying capacity.
-- **Living settlements** that add homes and citizens as conditions improve.
-- **Adaptive rendering** using capped pixel density, instancing, limited shadows, and compact simulation updates.
-- **Graceful Canvas fallback** when Three.js or WebGL is unavailable.
-- **Seeded worlds** for repeatable simulations and easy testing.
-- **Keyboard, mouse, trackpad, touch, and game-friendly controls** with no installation required.
+- **Autonomous villagers** with farmer, builder, warden, storyteller, and scout roles that react to scarcity, housing, forest health, and social conditions.
+- **Reactive world systems** covering food, water, soil, forests, climate stress, migration pressure, civic energy, seasons, droughts, rain, and storms.
+- **Emergent stories and a world chronicle** that records milestones, traditions, weather events, settlement growth, and small cultural moments.
+- **Four-stage legacy progression** with visible objectives and rewards instead of a single population target.
+- **Save and load** through local browser storage, including automatic periodic saves.
+- **Shareable worlds** encoded into a URL so another player can continue the current moment in history.
+- **A procedural floating island** with mountains, rivers, forests, fields, paths, growing settlements, and visible citizens.
+- **Six divine powers** with ecological and social trade-offs.
+- **Adaptive Three.js rendering** plus a Canvas 2D fallback for low-power devices or unavailable WebGL.
+- **Seeded deterministic worlds** for reproducible simulations and regression tests.
+- **Keyboard, mouse, trackpad, and touch controls** with no installation required.
 
 ## How to play
 
@@ -62,7 +63,10 @@ The prototype is designed specifically for modest laptops—including machines w
 | Apply a power | Click or tap the island |
 | Pause/resume | `Space` or time controls |
 | Accelerate history | `▶▶` and `▶▶▶` |
-| Generate a new world | Reset button in the top-right |
+| Save or restore | Top-right save/load buttons |
+| Share the current world | Top-right share button |
+| Review history | Open the chronicle |
+| Generate a new world | Reset button |
 
 ### Powers
 
@@ -75,35 +79,41 @@ The prototype is designed specifically for modest laptops—including machines w
 | Inspire | Improves harmony and wonder | Communities pause production |
 | Storm | Replenishes water quickly | Damages forest and harmony |
 
+## Persistence and sharing
+
+The game automatically saves the complete world state in the browser every 12 seconds and when the page is hidden or closed. Manual save and load controls are also available.
+
+The share button creates a compact URL fragment containing the seed, simulation state, legacy progress, settlements, and recent chronicle. Shared state stays client-side; no account or backend is required.
+
 ## Performance profile
 
 The default scene is intentionally bounded for integrated graphics:
 
-- Device pixel ratio capped at `1.5`
+- Device pixel ratio capped near `1.5`
 - Compact island rather than an open world
-- Instanced trees and repeated geometry
+- Instanced trees and citizens
 - One primary shadow-casting light
-- Limited visible citizens and houses
+- Limited visible houses and agents
 - Lightweight simulation updates independent of frame rate
 - Automatic Canvas 2D fallback
 
-For the lowest-power mode, append `?lite=1` or `?fallback=1` to the URL.
-
-Use a repeatable world with `?seed=42042`.
+Use `?lite=1` or `?fallback=1` for the lowest-power renderer. Use `?seed=42042` for a repeatable world.
 
 ## Architecture
 
 ```text
 index.html
-├── src/bootstrap.js     UI wiring, renderer selection, input
-├── src/game.js          Three.js world, camera, effects, interaction
-├── src/fallback.js      Canvas 2D low-power renderer
-├── src/simulation.js    Deterministic civilization simulation
-├── styles.css           Responsive glass-interface styling
-└── tests/               Node-native simulation tests
+├── src/bootstrap.js          UI, persistence, sharing, renderer selection
+├── src/game.js               Three.js world, camera, effects, interaction
+├── src/fallback.js           Canvas 2D low-power renderer
+├── src/simulation.js         Deterministic agents, systems, goals, stories
+├── styles.css                Responsive glass-interface styling
+├── tests/simulation.test.mjs Node-native deterministic tests
+├── tests/e2e/                Playwright browser regression tests
+└── .github/workflows/ci.yml  Unit, syntax, and Chromium CI
 ```
 
-Three.js is loaded as an ES module from cdnjs. There is no bundler and no production build step; the repository can be hosted as static files.
+Three.js is loaded as an ES module from cdnjs. There is no bundler or production build step; the repository can be hosted as static files.
 
 ## Development
 
@@ -112,22 +122,24 @@ Requirements: Node.js 20 or newer.
 ```bash
 git clone https://github.com/benclawbot/God-of-Small-Things.git
 cd God-of-Small-Things
+npm install
+npx playwright install chromium
 npm start
 ```
 
 Open `http://localhost:4173`.
 
-Run all checks:
-
 ```bash
-npm run check
+npm run check       # syntax and deterministic simulation tests
+npm run test:e2e    # Chromium browser tests
+npm run check:all   # everything
 ```
 
-The test suite verifies deterministic generation, simulation bounds, power trade-offs, and settlement growth.
+The browser suite deliberately exercises `?fallback=1`, making CI independent of the external Three.js CDN while still validating the full interface, persistence, sharing, chronicle, powers, and keyboard controls.
 
-## Current prototype scope
+## Roadmap
 
-This first playable release focuses on one polished island and the core simulation loop. Future expansions could add cultural identities, diplomacy, historical archives, additional biomes, disasters, monuments, and shareable world records.
+See [ROADMAP.md](ROADMAP.md) for the prioritized path toward cultural identities, diplomacy, deeper settlement specialisation, monuments, additional biomes, accessibility improvements, and richer world sharing.
 
 ## License
 
