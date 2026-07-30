@@ -15,8 +15,17 @@ test('shows progression, autonomous activity, and world statistics', async ({ pa
 });
 
 test('uses powers and records the result in the chronicle', async ({ page }) => {
-  await page.getByRole('button', { name: /Grow/i }).click();
-  await page.locator('#fallback').click({ position: { x: 640, y: 400 } });
+  const grow = page.getByRole('button', { name: /Grow/i });
+  await grow.click();
+  await expect(grow).toHaveClass(/active/);
+
+  const forestBefore = await page.evaluate(() => window.__smallThings.simulation.forest);
+  await page.locator('#fallback').dispatchEvent('click', {
+    button: 0,
+    clientX: 640,
+    clientY: 400
+  });
+  await expect.poll(() => page.evaluate(() => window.__smallThings.simulation.forest)).toBeGreaterThan(forestBefore);
   await expect(page.locator('#eventTitle')).toHaveText('A grove takes root');
 
   await page.getByRole('button', { name: /Open world chronicle/i }).click();
