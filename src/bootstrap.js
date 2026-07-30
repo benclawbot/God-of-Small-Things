@@ -141,6 +141,8 @@ function wireUI(controller) {
     if (!simulation.season) simulation.seasonIndex = 0;
     const effect = simulation.usePower(power);
     controller.usePower?.(power, clientX, clientY);
+    renderChronicle(ui.chronicleList, simulation.chronicle);
+    lastChronicleSize = simulation.chronicle.length;
     showToast(effect.title, effect.body, effect.icon);
     return effect;
   };
