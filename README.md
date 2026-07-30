@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://raw.githack.com/benclawbot/God-of-Small-Things/main/index.html"><strong>Play the browser build</strong></a>
+  <a href="https://god-of-small-things.vercel.app"><strong>Play the browser build</strong></a>
   ·
   <a href="#how-to-play">How to play</a>
   ·
