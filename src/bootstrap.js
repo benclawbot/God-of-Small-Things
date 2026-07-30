@@ -138,6 +138,7 @@ function wireUI(controller) {
   document.querySelector(`.time-controls button[data-speed="${simulation.speed}"]`)?.classList.add('active');
 
   const applyPower = (power = selectedPower, clientX = innerWidth / 2, clientY = innerHeight / 2) => {
+    if (!simulation.season) simulation.seasonIndex = 0;
     const effect = simulation.usePower(power);
     controller.usePower?.(power, clientX, clientY);
     showToast(effect.title, effect.body, effect.icon);
