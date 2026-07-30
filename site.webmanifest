@@ -1,0 +1,16 @@
+{
+  "name": "God of Small Things",
+  "short_name": "Small Things",
+  "description": "A living tabletop civilization simulator built with Three.js.",
+  "start_url": "./",
+  "display": "fullscreen",
+  "background_color": "#071110",
+  "theme_color": "#0b1515",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
