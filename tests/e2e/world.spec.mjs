@@ -16,14 +16,7 @@ test('shows progression, autonomous activity, and world statistics', async ({ pa
 
 test('uses powers and records the result in the chronicle', async ({ page }) => {
   await page.getByRole('button', { name: /Grow/i }).click();
-  await page.evaluate(() => {
-    const canvas = document.querySelector('#fallback');
-    canvas.dispatchEvent(new PointerEvent('pointerup', {
-      bubbles: true,
-      clientX: innerWidth / 2,
-      clientY: innerHeight / 2
-    }));
-  });
+  await page.mouse.click(640, 400);
   await expect(page.locator('#eventTitle')).toHaveText('A grove takes root');
 
   await page.getByRole('button', { name: /Open world chronicle/i }).click();
