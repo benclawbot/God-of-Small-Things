@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1515" />
+  <meta name="description" content="God of Small Things — a living tabletop civilization simulator built with Three.js." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="God of Small Things" />
+  <meta property="og:description" content="Shape terrain, climate, and culture—then watch tiny societies adapt." />
+  <meta property="og:image" content="assets/hero-banner.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>God of Small Things</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <canvas id="world" aria-label="Interactive floating island civilization"></canvas>
+  <canvas id="fallback" aria-label="Fallback floating island renderer" hidden></canvas>
+  <div id="vignette" aria-hidden="true"></div>
+
+  <header class="topbar glass">
+    <div class="brand">
+      <span class="brand-mark">✦</span>
+      <div>
+        <strong>GOD OF SMALL THINGS</strong>
+        <span>A living tabletop world</span>
+      </div>
+    </div>
+    <div class="era">
+      <span id="seasonDot" class="season-dot"></span>
+      <div><small id="seasonLabel">Spring</small><strong>Year <span id="year">1</span></strong></div>
+    </div>
+    <div class="top-actions">
+      <button id="soundButton" class="icon-button" aria-label="Toggle ambient sound" title="Toggle ambient sound">♪</button>
+      <button id="helpButton" class="icon-button" aria-label="Show controls" title="Show controls">?</button>
+      <button id="resetButton" class="icon-button" aria-label="Create a new world" title="Create a new world">↻</button>
+    </div>
+  </header>
+
+  <aside class="mission glass">
+    <span class="eyebrow">YOUR PURPOSE</span>
+    <h1>Help a small world find its balance.</h1>
+    <p id="missionText">Grow the first settlement without exhausting the land.</p>
+    <div class="objective"><span id="objectiveBar"></span></div>
+    <small><span id="objectiveCurrent">0</span> / <span id="objectiveTarget">120</span> citizens</small>
+  </aside>
+
+  <aside class="stats glass" aria-label="World statistics">
+    <div class="stats-heading"><span>WORLD PULSE</span><span id="statusWord">Awakening</span></div>
+    <div class="stat"><span>Population</span><strong id="population">18</strong></div>
+    <div class="stat"><span>Food stores</span><strong id="food">72%</strong></div>
+    <div class="stat"><span>Harmony</span><strong id="harmony">68%</strong></div>
+    <div class="stat"><span>Wonder</span><strong id="wonder">12</strong></div>
+    <div class="stat"><span>Forest cover</span><strong id="forest">42%</strong></div>
+    <div class="weather-row"><span id="weatherIcon">☀</span><div><strong id="weatherName">Clear skies</strong><small id="temperature">18°C</small></div></div>
+  </aside>
+
+  <div id="eventToast" class="event-toast glass" role="status" aria-live="polite">
+    <span id="eventIcon">✦</span><div><strong id="eventTitle">A new world wakes</strong><p id="eventBody">The first families have built beside the river.</p></div>
+  </div>
+
+  <nav class="powers glass" aria-label="God powers">
+    <button class="power active" data-power="observe"><span>◉</span><small>Observe</small><kbd>1</kbd></button>
+    <button class="power" data-power="forest"><span>♣</span><small>Grow</small><kbd>2</kbd></button>
+    <button class="power" data-power="rain"><span>◒</span><small>Rain</small><kbd>3</kbd></button>
+    <button class="power" data-power="raise"><span>▲</span><small>Raise</small><kbd>4</kbd></button>
+    <button class="power" data-power="inspire"><span>✦</span><small>Inspire</small><kbd>5</kbd></button>
+    <button class="power danger" data-power="storm"><span>ϟ</span><small>Storm</small><kbd>6</kbd></button>
+  </nav>
+
+  <div class="time-controls glass" aria-label="Time controls">
+    <button data-speed="0" aria-label="Pause">Ⅱ</button>
+    <button data-speed="1" class="active">▶</button>
+    <button data-speed="3">▶▶</button>
+    <button data-speed="8">▶▶▶</button>
+  </div>
+
+  <div class="hint glass"><span class="mouse">↔</span> Drag to orbit · scroll to zoom · choose a power, then touch the island</div>
+
+  <dialog id="helpDialog">
+    <button class="dialog-close" aria-label="Close">×</button>
+    <span class="eyebrow">HOW TO PLAY</span>
+    <h2>Shape conditions, not commands.</h2>
+    <p>The inhabitants make their own decisions. Your powers change the world around them, and every intervention has a consequence.</p>
+    <div class="help-grid">
+      <div><strong>Orbit</strong><span>Drag anywhere</span></div>
+      <div><strong>Zoom</strong><span>Mouse wheel / pinch</span></div>
+      <div><strong>Use power</strong><span>Select below, then click land</span></div>
+      <div><strong>Time</strong><span>Pause or accelerate history</span></div>
+    </div>
+    <p class="help-note">Optimized for integrated graphics: adaptive resolution, instanced vegetation, capped shadows, and compact simulation updates.</p>
+  </dialog>
+
+  <div id="loading" class="loading">
+    <span class="loading-glyph">✦</span>
+    <strong>Growing a small world</strong>
+    <small id="loadingStatus">Preparing the island…</small>
+  </div>
+
+  <script type="module" src="src/bootstrap.js"></script>
+</body>
+</html>
