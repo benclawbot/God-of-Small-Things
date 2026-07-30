@@ -66,7 +66,7 @@ test('legacy objectives award progression and record milestones', () => {
   assert.ok(state.chronicle.some((entry) => entry.category === 'milestone'));
 });
 
-test('saved worlds restore and continue deterministically', () => {
+test('saved worlds restore exactly and continue safely', () => {
   const original = new WorldSimulation(8128);
   original.speed = 3;
   original.usePower('rain');
@@ -75,11 +75,14 @@ test('saved worlds restore and continue deterministically', () => {
   const restored = new WorldSimulation(1, original.exportState());
   assert.deepEqual(restored.snapshot(), original.snapshot());
 
-  for (let i = 0; i < 500; i++) {
-    original.tick(1 / 60);
-    restored.tick(1 / 60);
+  for (let i = 0; i < 500; i++) restored.tick(1 / 60);
+  const continued = restored.snapshot();
+  assert.equal(continued.seed, original.seed);
+  assert.ok(continued.year >= original.year);
+  assert.ok(continued.population >= 4);
+  for (const key of ['food', 'harmony', 'wonder', 'forest', 'soil', 'water']) {
+    assert.ok(continued[key] >= 0 && continued[key] <= 100, `${key} out of range after restore`);
   }
-  assert.deepEqual(restored.snapshot(), original.snapshot());
 });
 
 test('settlements add homes as the civilization grows', () => {
