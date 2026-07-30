@@ -3,6 +3,7 @@ import { test, expect } from '@playwright/test';
 test.beforeEach(async ({ page }) => {
   await page.goto('/?fallback=1&seed=42042');
   await expect(page.locator('#loading')).toHaveClass(/hidden/);
+  await expect(page.locator('#eventTitle')).toHaveText('A new world wakes');
 });
 
 test('shows progression, autonomous activity, and world statistics', async ({ page }) => {
