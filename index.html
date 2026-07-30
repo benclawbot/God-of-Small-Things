@@ -33,6 +33,10 @@
       <div><small id="seasonLabel">Spring</small><strong>Year <span id="year">1</span></strong></div>
     </div>
     <div class="top-actions">
+      <button id="saveButton" class="icon-button" aria-label="Save world" title="Save world">▣</button>
+      <button id="loadButton" class="icon-button" aria-label="Load saved world" title="Load saved world">⇩</button>
+      <button id="shareButton" class="icon-button" aria-label="Copy a shareable world link" title="Share world">↗</button>
+      <button id="chronicleButton" class="icon-button" aria-label="Open world chronicle" title="World chronicle">☷</button>
       <button id="soundButton" class="icon-button" aria-label="Toggle ambient sound" title="Toggle ambient sound">♪</button>
       <button id="helpButton" class="icon-button" aria-label="Show controls" title="Show controls">?</button>
       <button id="resetButton" class="icon-button" aria-label="Create a new world" title="Create a new world">↻</button>
@@ -40,11 +44,14 @@
   </header>
 
   <aside class="mission glass">
-    <span class="eyebrow">YOUR PURPOSE</span>
-    <h1>Help a small world find its balance.</h1>
-    <p id="missionText">Grow the first settlement without exhausting the land.</p>
-    <div class="objective"><span id="objectiveBar"></span></div>
-    <small><span id="objectiveCurrent">0</span> / <span id="objectiveTarget">120</span> citizens</small>
+    <div class="mission-meta">
+      <span class="eyebrow">LEGACY <b id="legacyLevel">1</b></span>
+      <span><b id="legacyPoints">0</b> points</span>
+    </div>
+    <h1 id="objectiveLabel">First Roots</h1>
+    <p id="missionText">Grow to 40 citizens while keeping food above 45%.</p>
+    <div class="objective" aria-label="Current legacy objective progress"><span id="objectiveBar"></span></div>
+    <small><span id="objectiveProgress">0%</span> complete</small>
   </aside>
 
   <aside class="stats glass" aria-label="World statistics">
@@ -54,6 +61,8 @@
     <div class="stat"><span>Harmony</span><strong id="harmony">68%</strong></div>
     <div class="stat"><span>Wonder</span><strong id="wonder">12</strong></div>
     <div class="stat"><span>Forest cover</span><strong id="forest">42%</strong></div>
+    <div class="stat"><span>Fresh water</span><strong id="water">58%</strong></div>
+    <div class="activity-row"><span>People</span><strong id="activity">Beginning the day · 9</strong></div>
     <div class="weather-row"><span id="weatherIcon">☀</span><div><strong id="weatherName">Clear skies</strong><small id="temperature">18°C</small></div></div>
   </aside>
 
@@ -83,14 +92,26 @@
     <button class="dialog-close" aria-label="Close">×</button>
     <span class="eyebrow">HOW TO PLAY</span>
     <h2>Shape conditions, not commands.</h2>
-    <p>The inhabitants make their own decisions. Your powers change the world around them, and every intervention has a consequence.</p>
+    <p>The inhabitants choose their own work, rest, journeys, and traditions. Your powers change the world around them, and every intervention has a consequence.</p>
     <div class="help-grid">
       <div><strong>Orbit</strong><span>Drag anywhere</span></div>
       <div><strong>Zoom</strong><span>Mouse wheel / pinch</span></div>
       <div><strong>Use power</strong><span>Select below, then click land</span></div>
       <div><strong>Time</strong><span>Pause or accelerate history</span></div>
+      <div><strong>Save / load</strong><span>Keep one world in this browser</span></div>
+      <div><strong>Share</strong><span>Copy a link to the current world state</span></div>
     </div>
-    <p class="help-note">Optimized for integrated graphics: adaptive resolution, instanced vegetation, capped shadows, and compact simulation updates.</p>
+    <p class="help-note">Complete legacy goals, open the chronicle to revisit emergent stories, and use the low-power mode with <code>?lite=1</code>.</p>
+  </dialog>
+
+  <dialog id="chronicleDialog" class="chronicle-dialog">
+    <button class="dialog-close" aria-label="Close">×</button>
+    <span class="eyebrow">WORLD CHRONICLE</span>
+    <h2>History belongs to small moments.</h2>
+    <p>Milestones, weather, settlement changes, and stories are recorded as the people adapt.</p>
+    <ol id="chronicleList" class="chronicle-list">
+      <li class="chronicle-empty">History is still waiting for its first turning point.</li>
+    </ol>
   </dialog>
 
   <div id="loading" class="loading">
