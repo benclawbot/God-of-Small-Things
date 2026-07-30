@@ -138,12 +138,13 @@ function wireUI(controller) {
   document.querySelector(`.time-controls button[data-speed="${simulation.speed}"]`)?.classList.add('active');
 
   const activate = (event) => {
-    if (!(event.target instanceof Element) || event.target.closest('button, dialog, .glass')) return;
+    if (event.button !== undefined && event.button !== 0) return;
     const effect = simulation.usePower(selectedPower);
     controller.usePower?.(selectedPower, event.clientX, event.clientY);
     showToast(effect.title, effect.body, effect.icon);
   };
-  window.addEventListener('pointerup', activate);
+  document.querySelector('#world').addEventListener('pointerup', activate);
+  document.querySelector('#fallback').addEventListener('pointerup', activate);
 
   window.addEventListener('keydown', (event) => {
     const index = Number(event.key) - 1;
