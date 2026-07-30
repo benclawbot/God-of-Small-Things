@@ -1,0 +1,25 @@
+{
+  "name": "god-of-small-things",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A living tabletop civilization simulator built with Three.js for integrated graphics.",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.mjs",
+    "start": "node server.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check src/game.js && node --check src/fallback.js && node --check src/simulation.js && npm test"
+  },
+  "keywords": [
+    "threejs",
+    "simulation",
+    "god-game",
+    "procedural-generation",
+    "webgl",
+    "browser-game"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  }
+}
