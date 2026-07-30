@@ -143,8 +143,8 @@ function wireUI(controller) {
     controller.usePower?.(selectedPower, event.clientX, event.clientY);
     showToast(effect.title, effect.body, effect.icon);
   };
-  document.querySelector('#world').addEventListener('pointerup', activate);
-  document.querySelector('#fallback').addEventListener('pointerup', activate);
+  document.querySelector('#world').addEventListener('click', activate);
+  document.querySelector('#fallback').addEventListener('click', activate);
 
   window.addEventListener('keydown', (event) => {
     const index = Number(event.key) - 1;
