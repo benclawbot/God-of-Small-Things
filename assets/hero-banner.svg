@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="800" viewBox="0 0 1600 800" role="img" aria-labelledby="title desc">
+<title id="title">God of Small Things</title><desc id="desc">A miniature floating civilization beneath a divine hand.</desc>
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#071318"/><stop offset=".48" stop-color="#173039"/><stop offset="1" stop-color="#4a3a27"/></linearGradient>
+  <radialGradient id="sun"><stop stop-color="#ffe68a" stop-opacity=".9"/><stop offset="1" stop-color="#d4a72c" stop-opacity="0"/></radialGradient>
+  <linearGradient id="land" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#9ebd5d"/><stop offset=".55" stop-color="#527647"/><stop offset="1" stop-color="#283b31"/></linearGradient>
+  <linearGradient id="rock" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#5d5140"/><stop offset="1" stop-color="#201d19"/></linearGradient>
+  <linearGradient id="river" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#70d1d7"/><stop offset="1" stop-color="#167c99"/></linearGradient>
+  <filter id="glow"><feGaussianBlur stdDeviation="12"/></filter>
+  <filter id="shadow"><feDropShadow dx="0" dy="24" stdDeviation="22" flood-color="#000" flood-opacity=".65"/></filter>
+</defs>
+<rect width="1600" height="800" fill="url(#sky)"/>
+<circle cx="1280" cy="180" r="190" fill="url(#sun)"/>
+<g fill="#e9efe7" opacity=".75"><ellipse cx="520" cy="122" rx="78" ry="25"/><ellipse cx="578" cy="108" rx="52" ry="33"/><ellipse cx="1110" cy="112" rx="85" ry="24"/><ellipse cx="1164" cy="96" rx="48" ry="30"/></g>
+<g filter="url(#shadow)">
+  <path d="M390 342 Q520 220 820 210 Q1118 220 1320 355 Q1270 615 860 670 Q510 650 350 480Z" fill="url(#rock)"/>
+  <path d="M390 322 Q535 205 820 202 Q1110 210 1320 346 Q1210 530 850 568 Q530 555 350 463Z" fill="url(#land)" stroke="#d7c27a" stroke-opacity=".35" stroke-width="4"/>
+</g>
+<path d="M715 222 C700 290 770 315 732 368 C690 427 760 470 805 560" fill="none" stroke="url(#river)" stroke-width="44" stroke-linecap="round"/>
+<path d="M715 222 C700 290 770 315 732 368 C690 427 760 470 805 560" fill="none" stroke="#d7ffff" stroke-opacity=".35" stroke-width="5"/>
+<g><path d="M490 365 600 178 708 365Z" fill="#6d7464"/><path d="M600 178 560 285 610 258 648 300Z" fill="#f1eee3"/><path d="M1060 370 1135 238 1220 370Z" fill="#6b6e5f"/><path d="M1135 238 1104 303 1140 286 1172 317Z" fill="#eee9dc"/></g>
+<g fill="#285b38"><circle cx="470" cy="424" r="34"/><circle cx="530" cy="450" r="28"/><circle cx="1000" cy="430" r="42"/><circle cx="1080" cy="458" r="30"/><circle cx="1180" cy="425" r="34"/></g>
+<g fill="#d9b170" stroke="#4f3527" stroke-width="4"><rect x="820" y="382" width="58" height="44"/><rect x="895" y="402" width="48" height="36"/><rect x="954" y="370" width="62" height="49"/><rect x="840" y="452" width="44" height="34"/><rect x="930" y="455" width="52" height="38"/></g>
+<g fill="#704733"><path d="M810 382 849 350 888 382Z"/><path d="M887 402 919 377 951 402Z"/><path d="M944 370 985 335 1026 370Z"/><path d="M832 452 862 428 892 452Z"/><path d="M921 455 956 428 991 455Z"/></g>
+<g fill="#f6d66c"><circle cx="870" cy="520" r="5"/><circle cx="906" cy="496" r="5"/><circle cx="956" cy="515" r="5"/><circle cx="1012" cy="485" r="5"/></g>
+<path d="M1310 40 Q1405 38 1476 95 Q1428 110 1390 150 Q1360 205 1320 264 Q1298 275 1278 258 Q1260 240 1273 220 L1325 132 Q1270 150 1230 190 Q1208 198 1194 180 Q1180 158 1198 140Z" fill="#d5a176" stroke="#f2c59c" stroke-width="5"/>
+<path d="M1280 260 Q1265 298 1218 342" fill="none" stroke="#f8d765" stroke-width="7" stroke-linecap="round"/>
+<circle cx="1212" cy="352" r="48" fill="#ffd85a" opacity=".32" filter="url(#glow)"/><g fill="#ffdf69"><circle cx="1210" cy="351" r="6"/><circle cx="1195" cy="330" r="3"/><circle cx="1234" cy="337" r="4"/><circle cx="1200" cy="380" r="3"/></g>
+<rect x="0" y="0" width="425" height="800" fill="#061116" opacity=".78"/>
+<text x="92" y="250" fill="#f5f2e9" font-family="Georgia,serif" font-size="122" letter-spacing="12">GOD</text>
+<line x1="96" y1="284" x2="190" y2="284" stroke="#d6aa32" stroke-width="4"/><text x="218" y="297" fill="#f5f2e9" font-family="Georgia,serif" font-size="42">OF</text><line x1="282" y1="284" x2="372" y2="284" stroke="#d6aa32" stroke-width="4"/>
+<text x="88" y="372" fill="#f5f2e9" font-family="Georgia,serif" font-size="58">SMALL THINGS</text>
+<line x1="92" y1="416" x2="370" y2="416" stroke="#d6aa32" stroke-width="3"/>
+<text x="92" y="466" fill="#e5b93f" font-family="Georgia,serif" font-size="25">Shape worlds. Inspire civilizations.</text>
+</svg>
