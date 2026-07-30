@@ -137,11 +137,15 @@ function wireUI(controller) {
   });
   document.querySelector(`.time-controls button[data-speed="${simulation.speed}"]`)?.classList.add('active');
 
+  const applyPower = (power = selectedPower, clientX = innerWidth / 2, clientY = innerHeight / 2) => {
+    const effect = simulation.usePower(power);
+    controller.usePower?.(power, clientX, clientY);
+    showToast(effect.title, effect.body, effect.icon);
+    return effect;
+  };
   const activate = (event) => {
     if (event.button !== undefined && event.button !== 0) return;
-    const effect = simulation.usePower(selectedPower);
-    controller.usePower?.(selectedPower, event.clientX, event.clientY);
-    showToast(effect.title, effect.body, effect.icon);
+    applyPower(selectedPower, event.clientX, event.clientY);
   };
   document.querySelector('#world').addEventListener('click', activate);
   document.querySelector('#fallback').addEventListener('click', activate);
@@ -183,7 +187,7 @@ function wireUI(controller) {
     if (document.visibilityState === 'hidden') saveWorld(false);
   });
 
-  window.__smallThings = { simulation, saveWorld, loadWorld, shareWorld, encodeWorld, decodeWorld };
+  window.__smallThings = { simulation, applyPower, saveWorld, loadWorld, shareWorld, encodeWorld, decodeWorld };
   requestAnimationFrame(update);
 }
 
